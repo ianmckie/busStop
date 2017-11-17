@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './components/map/map.component';
 
 import { DataService } from './services/data.service';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { DataService } from './services/data.service';
   providers: [
     DataService
   ],
-  declarations: [ AppComponent, MapComponent ],
+  declarations: [ AppComponent, MapComponent, ModalComponent ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}

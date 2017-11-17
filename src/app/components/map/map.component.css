@@ -1,3 +1,14 @@
+/* BASE STYLES */
+html, 
+body {
+    height: 100%;
+}
+
 agm-map {
     height: 300px;
-  }
+}
+
+.agm-map-container-inner, .sebm-google-map-container{
+    height: 100%;
+}
+
