@@ -10,7 +10,7 @@ declare var $ :any;
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  styleUrls: ['./map.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
@@ -22,25 +22,25 @@ export class MapComponent implements OnInit {
   myIcon: string = "http://ianmckie.com/bustop-json/js/you-icon.png";
   busIcon: string = "http://ianmckie.com/bustop-json/images/bus-icon.png";
 
-  currentStopId: number;
+  currentStopId: number = 0;
 
   nearestMarkers: any[];
   busesServing: any[];
+  RTI: any[];
 
   // Modal Vars
-  bodySection: string = '';
-  titleSection: String = '';
-  buttonSection: string = '';
+  titleText: String = 'Realtime Information';
+  buttonText: string = 'Refresh';
 
   constructor(private dataservice:DataService) {}
 
   ngOnInit() {
     // Contact API to find nearest bus stops to your location
     this.dataservice.getNearStops(this.lat, this.lng).subscribe((response) => {
-      this.nearestMarkers = response.Stops;2
-    }); 
+      this.nearestMarkers = response.Stops;
+    });
   }
-
+  
 
   /*
    * When the main marker is picked up and dropped
@@ -67,22 +67,16 @@ export class MapComponent implements OnInit {
    */
 
   getStopInfo(stopId){
+    this.currentStopId = stopId;
+    this.dataservice.getRTI(stopId).subscribe((response) => {
+      
+      this.RTI = response.times;
+      this.busesServing = response.routes;
 
-    // Contact the API to get the buses serving a stop
-    this.dataservice.getBusesServing(stopId).subscribe((response) => {
-      
-      let body = '<ul>',
-          routes = response.Routes;
-      
-      for(let x = 0;x<routes.length;x++){
-        body += '<li><a onClick="this.getBusRoute()" class="bus-number" href="#">'+routes[x].BusNumber+'</a></li>'
+      // Open bootstrap modal
+      if(!$('body').hasClass('.modal-open')){
+        $('.modal').modal();
       }
-      
-      this.bodySection = body+'</ul>';
-
-      // Oen bootstrap modal
-      $('.modal').modal();
-
     }); 
   }
 

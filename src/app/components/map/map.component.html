@@ -1,5 +1,50 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14">
-  <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="myIcon" [markerDraggable]="true" (dragEnd)="dragEnd($event)"></agm-marker>
+  <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="myIcon" [markerDraggable]="true" (dragEnd)="dragEnd($event)">
+      <agm-info-window [isOpen]="true">You can drag me to any location</agm-info-window>
+  </agm-marker>
   <agm-marker *ngFor="let stops of nearestMarkers;" [latitude]="stops.Latitudes" [longitude]="stops.Longitudes" [iconUrl]="busIcon" [markerClickable]="true" (markerClick)="getStopInfo(stops.StopNumber)"></agm-marker>
 </agm-map>
-<app-modal [modalTitle]="titleSection" [modalBody]="bodySection" [buttonText]="buttonSecion"></app-modal>
+
+<!-- Modal for displaying busStop information -->
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h2 class="modal-title">{{ this.titleText }}</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div><!-- END .modal-header -->
+
+        <div #dataContainer class="modal-body">
+          <!-- Refresh RTI -->
+          <button type="button" class="btn btn-primary refresh" (click)="getStopInfo(this.currentStopId)">{{ buttonText }}</button>
+          
+          <!-- Collapse container for buses serving -->
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#buses-serving-collapse" aria-expanded="false" aria-controls="collapseExample">
+            Buses Serving This Stop
+          </button>
+
+          <div class="clearfix"></div>
+          
+          <!-- Container for buses serving-->
+          <ul id="buses-serving-collapse" class="collapse buses-serving">
+            <li *ngFor="let buses of busesServing">
+              <a class="bus-number">{{buses.busNumber}}</a>
+            </li>
+          </ul>
+
+          <!-- Realtime information -->
+          <ul class="realtime clearfix">
+            <li *ngFor="let realTimeInfo of RTI">
+                <div class="bus-route">{{realTimeInfo.route}}</div> <div>{{realTimeInfo.destination}}</div> <div class="time">{{realTimeInfo.time}}</div>
+            </li>
+          </ul>
+
+        </div><!-- END .modal-body -->
+        <div class="arrow"></div>
+      </div><!-- END .modal-content -->
+    </div>
+   
+  </div><!-- END .modal -->

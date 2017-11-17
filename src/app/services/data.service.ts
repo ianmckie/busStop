@@ -13,9 +13,9 @@ export class DataService {
     return this.http.get('http://ianmckie.com/bustop-json/distance.php?lat='+lat+'&lng='+lng)
       .map(res => res.json());
   }
-
-  getBusesServing(stopId){
-    return this.http.get('http://ianmckie.com/bustop-json/buses-serving-get.php?stopId='+stopId)
+  
+  getRTI(stopId){
+    return this.http.get('http://ianmckie.com/bustop-json/rti-get.php?stopId='+stopId)
     .map(res => res.json());  
   }
 

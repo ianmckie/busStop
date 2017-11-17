@@ -1,0 +1,122 @@
+/* BASE STYLES */
+html, 
+body {
+    height: 100%;
+    color: #2f2f2f;
+}
+
+ul{
+    list-style: none
+}
+
+agm-map {
+    height: 300px;
+}
+
+.agm-map-container-inner, .sebm-google-map-container{
+    height: 100%;
+}
+
+.btn-primary{
+    background-color: #2f2f2f;
+}
+
+.modal{
+    .arrow{
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 20px 20px 0 20px;
+        border-color: #efd22f transparent transparent transparent;
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translate(-50%);      
+    }
+
+    .modal-content{
+        background-color: #efd22f;
+        
+        .modal-header{
+            h2{
+                width: 90%;
+                float: left;
+            }
+        }
+    
+        .modal-body{
+            padding:30px;
+            
+            .btn{
+                vertical-align: top;       
+            }
+
+            .refresh{
+                margin-bottom: 20px;
+                float:right;
+            }
+
+            ul{
+                margin:0;
+                padding:0;
+
+                &.realtime{
+                    margin-top:10px;
+
+                    li{
+                        width:100%;
+    
+                        div{
+                            width: calc(80% - 80px);
+                            float: left;
+                            font-size: 16px;
+                            line-height: 31px;
+    
+                            &.time{
+                                display: inline-block;
+                                width: 80px;
+                                background-color: #2e2e2e;
+                                color: #FFF;
+                                font-weight: bold;
+                                text-align: center;
+                                font-size: 20px;
+                                margin-bottom: 3px;
+                            }
+        
+                            &.bus-route{
+                                width:20%;
+                                font-size: 22px;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+
+                &.buses-serving{
+                    li{
+                        display: inline-block;
+        
+                        .bus-number{
+                            width: 50px;
+                            height: 50px;
+                            display: inline-block;
+                            background-color: #2f2f2f;
+                            margin-right: 10px;
+                            border-radius: 100%;
+                            color: #FFF;
+                            font-weight: bold;
+                            text-align: center;
+                            padding-top: 14px;
+                            font-size: 16px;
+                            margin-bottom: 20px;
+                        }
+                        
+                        .bus-number:hover{
+                            color:#fff;
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}
